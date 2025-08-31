@@ -36,7 +36,7 @@ pipeline {
         sshagent(['80c6cedf-565a-4b07-bebf-01745f6e6a94']) {
             sh """
             ssh ${DEPLOY_USER}@${DEPLOY_HOST} '
-                cd /home/ubuntu/flask-app || git clone git@github.com:your-org/flask-app.git /home/ubuntu/flask-app
+                cd /home/ubuntu/flask-app || git clone https://github.com/ajit010/Python-Flask-MySQL-App.git /home/ubuntu/flask-app
                 cd /home/ubuntu/flask-app
                 git reset --hard
                 git pull origin main
