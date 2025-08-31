@@ -11,10 +11,6 @@ pipeline {
 
         FLASK_SECRET_KEY = credentials('flask-secret-key')
         SONAR_TOKEN = credentials('sonar-token')
-
-        // Corrected to access the username and password environment variables
-        DEPLOY_PASSWORD_USR = credentials('ec2-username-password') // This is the username
-        DEPLOY_PASSWORD_PSW = DEPLOY_PASSWORD_USR.PSW // This is the password (accessing the password)
     }
     stages {
         stage('Checkout') {
@@ -37,19 +33,14 @@ pipeline {
 
         stage('Deploy to EC2-2') {
             steps {
-                script {
-                    // Fetch the username and password from the Jenkins credentials
-                    def password = DEPLOY_PASSWORD_PSW
-                    def user = DEPLOY_PASSWORD_USR
-
-                    // Use sshpass for password-based authentication
+                withCredentials([usernamePassword(credentialsId: 'ec2-username-password', usernameVariable: 'DEPLOY_USER', passwordVariable: 'DEPLOY_PASSWORD')]) {
                     sh """
                         # Ensure known_hosts is configured to avoid host verification issues
                         mkdir -p ~/.ssh
                         ssh-keyscan -H ${DEPLOY_HOST} >> ~/.ssh/known_hosts
 
                         # Use sshpass to pass the password for SSH connection
-                        sshpass -p ${password} ssh -o StrictHostKeyChecking=no ${user}@${DEPLOY_HOST} '
+                        sshpass -p ${DEPLOY_PASSWORD} ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} '
                             cd /home/ubuntu/flask-app || git clone https://github.com/ajit010/Python-Flask-MySQL-App.git /home/ubuntu/flask-app
                             cd /home/ubuntu/flask-app
                             git reset --hard
@@ -64,12 +55,9 @@ pipeline {
 
         stage('SonarQube Scan') {
             steps {
-                script {
-                    // Use sshpass with password for SonarQube Scan
-                    def password = DEPLOY_PASSWORD_PSW
-                    def user = DEPLOY_PASSWORD_USR
+                withCredentials([usernamePassword(credentialsId: 'ec2-username-password', usernameVariable: 'DEPLOY_USER', passwordVariable: 'DEPLOY_PASSWORD')]) {
                     sh '''
-                        sshpass -p ${password} ssh -o StrictHostKeyChecking=no ${user}@${DEPLOY_HOST} '
+                        sshpass -p ${DEPLOY_PASSWORD} ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} '
                             sonar-scanner \
                             -Dsonar.projectKey=flask-app \
                             -Dsonar.sources=. \
