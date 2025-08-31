@@ -1,8 +1,8 @@
-version: "3.9"
+version: "3.9-slim"
 
 services:
   app:
-    build: ./app
+    build: ./flask-app
     container_name: flask-app
     ports:
       - "5000:5000"
