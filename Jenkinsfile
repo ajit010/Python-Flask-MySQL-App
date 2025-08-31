@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'git@github.com:your-org/Python-Flask-MySQL-App.git'
+                git branch: 'main', url: 'https://@github.com:your-org/Python-Flask-MySQL-App.git'
             }
         }
 
