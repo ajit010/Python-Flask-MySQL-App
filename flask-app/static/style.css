@@ -89,6 +89,139 @@ body {
   text-decoration: underline;
 }
 
+
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background: #1e3a8a;
+  color: white;
+}
+
+.dashboard-header .logo {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.dashboard-header nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+.dashboard-header nav a:hover {
+  text-decoration: underline;
+}
+
+/* Hero Section */
+.dashboard-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  color: white;
+}
+
+.dashboard-hero .hero-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.dashboard-hero .hero-text p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.dashboard-hero .hero-img img {
+  max-width: 350px;
+}
+
+/* Cards Section */
+.dashboard-cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 50px 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.btn-card {
+  display: inline-block;
+  background: #667eea;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-card:hover {
+  background: #5a67d8;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #1e3a8a;
+  color: white;
+  margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .dashboard-hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .dashboard-hero .hero-img img {
+    margin-top: 20px;
+  }
+
+  .dashboard-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
 /* Animation */
 @keyframes fadeIn {
   from {opacity: 0; transform: translateY(20px);}
