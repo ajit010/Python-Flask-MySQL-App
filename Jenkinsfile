@@ -52,21 +52,5 @@ pipeline {
                 }
             }
         }
-
-        stage('SonarQube Scan') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'ec2-username-password', usernameVariable: 'DEPLOY_USER', passwordVariable: 'DEPLOY_PASSWORD')]) {
-                    sh '''
-                        sshpass -p ${DEPLOY_PASSWORD} ssh -o StrictHostKeyChecking=no ${DEPLOY_USER}@${DEPLOY_HOST} '
-                            sonar-scanner \
-                            -Dsonar.projectKey=flask-app \
-                            -Dsonar.sources=. \
-                            -Dsonar.host.url=http://3.144.30.107:9000 \
-                            -Dsonar.token=${SONAR_TOKEN}
-                        '
-                    '''
-                }
-            }
-        }
     }
-}
+
