@@ -1,10 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Flask App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <h2>Welcome {{ username }} 🎉</h2>
-  <a href="/logout">Logout</a>
+  <header class="dashboard-header">
+    <div class="logo">🗳 SmartVote</div>
+    <nav>
+      <a href="/dashboard">Dashboard</a>
+      <a href="/vote">Cast Vote</a>
+      <a href="/results">Results</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+
+  <section class="dashboard-hero">
+    <div class="hero-text">
+      <h1>Welcome, {{ username }}!</h1>
+      <p>Take part in the voting process and track results in real-time.</p>
+    </div>
+    <div class="hero-img">
+      <img src="{{ url_for('static', filename='images/dashboard.png') }}" alt="Dashboard Illustration">
+    </div>
+  </section>
+
+  <section class="dashboard-cards">
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/vote.png') }}" alt="Vote">
+      <h3>Cast Your Vote</h3>
+      <p>Participate in ongoing polls quickly and securely.</p>
+      <a href="/vote" class="btn-card">Go</a>
+    </div>
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/results.png') }}" alt="Results">
+      <h3>View Results</h3>
+      <p>See real-time results and historical voting statistics.</p>
+      <a href="/results" class="btn-card">View</a>
+    </div>
+    <div class="card">
+      <img src="{{ url_for('static', filename='images/profile.png') }}" alt="Profile">
+      <h3>Profile</h3>
+      <p>Manage your account details and update your information.</p>
+      <a href="/profile" class="btn-card">Edit</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 SmartVote. All Rights Reserved.</p>
+  </footer>
 </body>
 </html>
