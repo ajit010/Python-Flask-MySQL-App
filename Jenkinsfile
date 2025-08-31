@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DEPLOY_HOST = '3.134.101.210'
+        DEPLOY_HOST = '3.148.193.131'
         DEPLOY_USER = 'ubuntu'
 
         MYSQL_ROOT_PASSWORD = credentials('mysql-root-password')
@@ -33,7 +33,7 @@ pipeline {
 
         stage('Deploy to EC2-2') {
     steps {
-        sshagent(['80c6cedf-565a-4b07-bebf-01745f6e6a94']) {
+        sshagent(['ec2-ssh-key']) {
             sh """
             ssh ${DEPLOY_USER}@${DEPLOY_HOST} '
                 cd /home/ubuntu/flask-app || git clone https://github.com/ajit010/Python-Flask-MySQL-App.git /home/ubuntu/flask-app
@@ -49,7 +49,7 @@ pipeline {
 }
         stage('SonarQube Scan') {
             steps {
-                sshagent(['80c6cedf-565a-4b07-bebf-01745f6e6a94']) {
+                sshagent(['ec2-ssh-key']) {
                     sh '''
                     ssh ${DEPLOY_USER}@${DEPLOY_HOST} '
                       sonar-scanner \
