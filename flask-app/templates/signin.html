@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Signin</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - Flask App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="form-container">
-    <h2>Signin</h2>
-    <form action="/signin" method="POST">
-      <input type="text" name="username" placeholder="Username" required><br>
-      <input type="password" name="password" placeholder="Password" required><br>
-      <button type="submit">Signin</button>
-    </form>
-    <a href="/signup">Don't have an account? Signup</a>
+  <div class="auth-container">
+    <div class="auth-card">
+      <img src="{{ url_for('static', filename='images/login.png') }}" alt="Login" class="auth-image">
+      <h2>Welcome Back</h2>
+      <form method="POST" action="/signin">
+        <input type="text" name="username" placeholder="Enter Username" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <button type="submit" class="btn">Sign In</button>
+      </form>
+      <p class="switch-text">Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
   </div>
 </body>
 </html>
