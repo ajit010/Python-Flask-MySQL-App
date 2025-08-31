@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DEPLOY_HOST = 'ec2-2-public-ip'
+        DEPLOY_HOST = '3.134.101.210'
         DEPLOY_USER = 'ubuntu'
 
         MYSQL_ROOT_PASSWORD = credentials('mysql-root-password')
@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'git@github.com:your-org/flask-app.git'
+                git branch: 'main', url: 'git@github.com:your-org/Python-Flask-MySQL-App.git'
             }
         }
 
@@ -32,25 +32,30 @@ pipeline {
         }
 
         stage('Deploy to EC2-2') {
-            steps {
-                sshagent(['ec2-2-ssh-key']) {
-                    sh '''
-                    scp -r * ${DEPLOY_USER}@${DEPLOY_HOST}:/home/ubuntu/flask-app/
-                    ssh ${DEPLOY_USER}@${DEPLOY_HOST} 'cd /home/ubuntu/flask-app && docker-compose down && docker-compose up -d --build'
-                    '''
-                }
-            }
+    steps {
+        sshagent(['ec2-2-ssh-key']) {
+            sh """
+            ssh ${DEPLOY_USER}@${DEPLOY_HOST} '
+                cd /home/ubuntu/flask-app || git clone git@github.com:your-org/flask-app.git /home/ubuntu/flask-app
+                cd /home/ubuntu/flask-app
+                git reset --hard
+                git pull origin main
+                docker-compose down
+                docker-compose up -d --build
+            '
+            """
         }
-
+    }
+}
         stage('SonarQube Scan') {
             steps {
-                sshagent(['ec2-2-ssh-key']) {
+                sshagent(['80c6cedf-565a-4b07-bebf-01745f6e6a94']) {
                     sh '''
                     ssh ${DEPLOY_USER}@${DEPLOY_HOST} '
                       sonar-scanner \
                       -Dsonar.projectKey=flask-app \
                       -Dsonar.sources=. \
-                      -Dsonar.host.url=http://localhost:9000 \
+                      -Dsonar.host.url=http://3.144.30.107:9000 \
                       -Dsonar.token=${SONAR_TOKEN}
                     '
                     '''
