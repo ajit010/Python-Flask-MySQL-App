@@ -1,8 +1,8 @@
 pipeline {
     agent any
     environment {
-        DEPLOY_HOST = '3.148.193.131'
-        DEPLOY_USER = 'ubuntu'
+        DEPLOY_HOST = '3.137.183.244'
+        DEPLOY_USER = 'root'
 
         MYSQL_ROOT_PASSWORD = credentials('mysql-root-password')
         MYSQL_DATABASE = credentials('mysql-database')
