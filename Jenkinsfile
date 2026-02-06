@@ -9,7 +9,6 @@ pipeline {
         MYSQL_DATABASE      = credentials('mysql-database')
         MYSQL_USER          = credentials('mysql-user')
         MYSQL_PASSWORD      = credentials('mysql-password')
-        FLASK_SECRET_KEY    = credentials('flask-secret-key')
     }
 
     stages {
@@ -30,7 +29,6 @@ MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 MYSQL_DATABASE=${MYSQL_DATABASE}
 MYSQL_USER=${MYSQL_USER}
 MYSQL_PASSWORD=${MYSQL_PASSWORD}
-FLASK_SECRET_KEY=${FLASK_SECRET_KEY}
 IMAGE_TAG=${IMAGE_TAG}
 EOF
                 '''
