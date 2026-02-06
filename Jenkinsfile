@@ -61,7 +61,7 @@ EOF
         stage('Stop Old Containers') {
             steps {
                 sh '''
-                docker-compose down || true
+                docker compose down || true
                 docker rm -f flask-app mysql-db || true
                 '''
             }
@@ -70,7 +70,7 @@ EOF
         stage('Deploy Application') {
             steps {
                 sh '''
-                docker-compose up -d --build
+                docker compose up -d --build
                 '''
             }
         }
